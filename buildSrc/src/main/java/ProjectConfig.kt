@@ -1,5 +1,5 @@
 object ProjectConfig {
-    const val appId = "com.dev.felosio"
+    const val appId = "com.binus.breakfree"
     const val compileSdk = 33
     const val minSdk = 23
     const val targetSdk = 33
