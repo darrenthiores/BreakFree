@@ -1,4 +1,5 @@
 object ProjectConfig {
+    const val nameSpace = "com.binus.breakfree"
     const val appId = "com.binus.breakfree"
     const val compileSdk = 33
     const val minSdk = 23

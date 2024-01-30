@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+    namespace = ProjectConfig.nameSpace
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
@@ -39,9 +40,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.composeCompilerVersion
     }
-    packagingOptions {
+    packaging {
         resources {
-            excludes.add("META-INF/*")
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
