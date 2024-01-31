@@ -53,9 +53,6 @@ dependencies {
     implementation AndroidX.paging
     implementation AndroidX.composePaging
 
-    implementation VideoPlayer.exoPlayer
-    implementation VideoPlayer.constraintLayout
-
     implementation Coil.coilCompose
     implementation Coil.coilVideo
     implementation Coil.coilGif

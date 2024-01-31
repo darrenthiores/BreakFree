@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "BreakFree"
 include(":app")
+include(":core_ui")
+include(":core")
