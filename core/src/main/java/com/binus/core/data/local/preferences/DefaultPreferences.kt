@@ -8,6 +8,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.binus.core.domain.preferences.Preferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,7 +27,15 @@ class DefaultPreferences @Inject constructor(
         }
     }
 
-    override fun loadIsLogin(): Flow<Boolean> {
+    override suspend fun loadIsLogin(): Boolean {
+        return context.dataStore.data
+            .map { preferences ->
+                preferences[loginKey] ?: false
+            }
+            .firstOrNull()  ?: false
+    }
+
+    override fun loadIsLoginAsFlow(): Flow<Boolean> {
         return context.dataStore.data
             .map { preferences ->
                 preferences[loginKey] ?: false
