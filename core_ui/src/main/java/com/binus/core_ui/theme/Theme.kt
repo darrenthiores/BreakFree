@@ -1,4 +1,4 @@
-package com.binus.breakfree.ui.theme
+package com.binus.core_ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -40,6 +40,7 @@ fun BreakFreeTheme(
     MaterialTheme(
         colors = colors,
         typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }

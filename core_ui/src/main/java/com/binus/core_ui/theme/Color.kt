@@ -1,4 +1,4 @@
-package com.binus.breakfree.ui.theme
+package com.binus.core_ui.theme
 
 import androidx.compose.ui.graphics.Color
 
