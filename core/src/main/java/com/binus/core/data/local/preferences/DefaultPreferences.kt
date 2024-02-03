@@ -20,6 +20,7 @@ class DefaultPreferences @Inject constructor(
     @ApplicationContext private val context: Context
 ): Preferences {
     private val loginKey = booleanPreferencesKey(Preferences.IS_LOGIN)
+    private val showBoardingKey = booleanPreferencesKey(Preferences.SHOW_BOARDING)
 
     override suspend fun saveLogin(isLogin: Boolean) {
         context.dataStore.edit { settings ->
@@ -39,6 +40,27 @@ class DefaultPreferences @Inject constructor(
         return context.dataStore.data
             .map { preferences ->
                 preferences[loginKey] ?: false
+            }
+    }
+
+    override suspend fun saveShowBoarding(showBoarding: Boolean) {
+        context.dataStore.edit { settings ->
+            settings[showBoardingKey] = showBoarding
+        }
+    }
+
+    override suspend fun loadShowBoarding(): Boolean {
+        return context.dataStore.data
+            .map { preferences ->
+                preferences[showBoardingKey] ?: false
+            }
+            .firstOrNull()  ?: false
+    }
+
+    override fun loadShowBoardingAsFlow(): Flow<Boolean> {
+        return context.dataStore.data
+            .map { preferences ->
+                preferences[showBoardingKey] ?: false
             }
     }
 }

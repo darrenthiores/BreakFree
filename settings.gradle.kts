@@ -17,3 +17,5 @@ rootProject.name = "BreakFree"
 include(":app")
 include(":core_ui")
 include(":core")
+include(":presentation")
+include(":presentation:boarding")

@@ -3,11 +3,8 @@ package com.binus.breakfree
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.binus.core.domain.preferences.Preferences
 import com.binus.core_ui.theme.BreakFreeTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,15 +18,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val showBoarding by preferences
+                .loadShowBoardingAsFlow()
+                .collectAsState(initial = true)
+
+            val showLogin by preferences
+                .loadIsLoginAsFlow()
+                .collectAsState(initial = true)
+
             BreakFreeTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Text(
-                        text = "Hello Android!"
-                    )
-                }
+                BreakFree(
+                    shouldShowOnBoarding = showBoarding,
+                    shouldShowLogin = showLogin
+                )
             }
         }
     }

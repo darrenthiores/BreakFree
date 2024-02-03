@@ -1,0 +1,13 @@
+<resources>
+    <string name="boarding_cd">Boarding %d Illustration</string>
+    <string name="boarding_1_title">Save Your Money</string>
+    <string name="boarding_1_desc">We believe that every small step in overcoming addiction brings you closer to greater financial well-being.</string>
+    <string name="boarding_2_title">Positive Social Networking</string>
+    <string name="boarding_2_desc">Together, we\'ll conquer challenges and celebrate victories, making every day a triumph in your pursuit of a healthier, happier you.</string>
+    <string name="boarding_3_title">Find New Activity</string>
+    <string name="boarding_3_desc">Engage in uplifting activities, personalized challenges, and inspiring content tailored for your recovery journey.</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
+    <string name="next">Next</string>
+    <string name="boarding_label">Boarding Screen</string>
+</resources>

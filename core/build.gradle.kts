@@ -19,6 +19,7 @@ android {
         buildConfigField("String", "DATA_STORE_NAME", "\"DATA_MANAGEMENT\"")
         buildConfigField("String", "ENCRYPTED_PREF_NAME", "\"BREAKFREE_ENCRYPT\"")
         buildConfigField("String", "IS_LOGIN_KEY", "\"IS_LOGIN\"")
+        buildConfigField("String", "SHOW_BOARDING", "\"SHOW_BOARDING\"")
         buildConfigField("String", "USER_TOKEN_KEY", "\"USER_TOKEN\"")
         buildConfigField("String", "USER_REFRESH_TOKEN_KEY", "\"USER_REFRESH_TOKEN\"")
         buildConfigField("String", "RECORD_VIEW_KEY", "\"RECORD_VIEW\"")

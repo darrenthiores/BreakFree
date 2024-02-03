@@ -3,4 +3,5 @@ object Modules {
 
     const val core = ":core"
     const val coreUi = ":core_ui"
+    const val boarding = ":presentation:boarding"
 }
