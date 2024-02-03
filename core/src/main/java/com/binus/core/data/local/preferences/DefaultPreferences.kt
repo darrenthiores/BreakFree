@@ -31,15 +31,15 @@ class DefaultPreferences @Inject constructor(
     override suspend fun loadIsLogin(): Boolean {
         return context.dataStore.data
             .map { preferences ->
-                preferences[loginKey] ?: false
+                preferences[loginKey] ?: true
             }
-            .firstOrNull()  ?: false
+            .firstOrNull()  ?: true
     }
 
     override fun loadIsLoginAsFlow(): Flow<Boolean> {
         return context.dataStore.data
             .map { preferences ->
-                preferences[loginKey] ?: false
+                preferences[loginKey] ?: true
             }
     }
 
@@ -52,15 +52,15 @@ class DefaultPreferences @Inject constructor(
     override suspend fun loadShowBoarding(): Boolean {
         return context.dataStore.data
             .map { preferences ->
-                preferences[showBoardingKey] ?: false
+                preferences[showBoardingKey] ?: true
             }
-            .firstOrNull()  ?: false
+            .firstOrNull()  ?: true
     }
 
     override fun loadShowBoardingAsFlow(): Flow<Boolean> {
         return context.dataStore.data
             .map { preferences ->
-                preferences[showBoardingKey] ?: false
+                preferences[showBoardingKey] ?: true
             }
     }
 }

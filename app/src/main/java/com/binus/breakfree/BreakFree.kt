@@ -14,9 +14,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.binus.boarding.BoardingScreen
 import com.binus.boarding.BoardingViewModel
+import com.binus.breakfree.ui.SplashScreen
 import com.binus.breakfree.utils.AppState
 import com.binus.breakfree.utils.rememberAppState
 import com.binus.core_ui.navigation.Route
+import com.binus.core_ui.navigation.TopLevelDestination
 import com.binus.core_ui.utils.UiEvent
 
 @Composable
@@ -42,8 +44,20 @@ fun BreakFree(
             modifier = Modifier
                 .padding(paddingValues),
             navController = navController,
-            startDestination = Route.Boarding.name
+            startDestination = Route.Splash.name
         ) {
+            composable(Route.Splash.name) {
+                SplashScreen {
+                    if (shouldShowOnBoarding) {
+                        navController.navigate(Route.Boarding.name)
+                    } else if (shouldShowLogin) {
+                        navController.navigate(Route.Login.name)
+                    } else {
+                        navController.navigate(TopLevelDestination.Home.name)
+                    }
+                }
+            }
+
             composable(Route.Boarding.name) {
                 val viewModel: BoardingViewModel = hiltViewModel()
                 val state by viewModel.state.collectAsState()
