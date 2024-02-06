@@ -1,7 +1,6 @@
 package com.binus.core_ui.components.textfields
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,8 +17,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Visibility
+import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,32 +29,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.binus.core_ui.R
 import com.binus.core_ui.theme.BreakFreeTheme
 
 @Composable
-fun DefaultTextField(
+fun PasswordTextField(
     modifier: Modifier = Modifier,
     text: String,
     onTextChange: (String) -> Unit,
     placeholder: String,
+    isVisible: Boolean,
     size: TextFieldSize = TextFieldSize.Large,
     disabled: Boolean = false,
-    isError: Boolean = false,
-    startIcon: ImageVector? = null,
-    endIcon: ImageVector? = null,
-    lineLimit: Int = 1,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         imeAction = ImeAction.Done
     ),
-    onEndIconClick: () -> Unit = {  },
+    onToggle: () -> Unit,
     onFocusChange: (Boolean) -> Unit = {  },
     onSubmit: () -> Unit = {  }
 ) {
@@ -95,7 +90,7 @@ fun DefaultTextField(
         textStyle = textStyle.copy(
             color = if (disabled) Color.Gray else MaterialTheme.colors.onBackground
         ),
-        maxLines = lineLimit,
+        singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colors.secondary),
         decorationBox = { innerTextField ->
             Row(
@@ -106,35 +101,17 @@ fun DefaultTextField(
                     )
 //                    .border(
 //                        width = 1.dp,
-//                        color = if (isError) Color.Red else {
-//                            if (isFocused) MaterialTheme.colors.primaryVariant else Color.Gray
-//                        },
+//                        color = if (isFocused) MaterialTheme.colors.primaryVariant else Color.Gray,
 //                        shape = RoundedCornerShape(12.dp)
 //                    )
                     .padding(horizontal = 16.dp)
-                    .height(
-                        (textFieldHeight.times(lineLimit))
-                    ),
+                    .height(textFieldHeight),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                startIcon?.let {
-                    Icon(
-                        modifier = Modifier
-                            .size(iconSize),
-                        imageVector = it,
-                        contentDescription = null,
-                        tint = if (disabled) Color.Gray else MaterialTheme.colors.onBackground
-                    )
-
-                    Spacer(
-                        modifier = Modifier
-                            .width(8.dp)
-                    )
-                }
-
                 Box(
                     modifier = Modifier
                         .weight(1f)
+                        .padding(bottom = 4.dp) // stupid work around
                 ) {
                     if (text.isEmpty()) {
                         Text(
@@ -149,51 +126,25 @@ fun DefaultTextField(
                     innerTextField()
                 }
 
-                if (text.isNotEmpty()) {
-                    Spacer(
-                        modifier = Modifier
-                            .width(8.dp)
-                    )
+                Spacer(
+                    modifier = Modifier
+                        .width(8.dp)
+                )
 
-                    val clickableModifier = Modifier
-                        .size(iconSize)
-                        .clickable {
-                            onTextChange("")
-                        }
-                    val disabledModifier = Modifier
-                        .size(iconSize)
-                    val endIconModifier = if (disabled) disabledModifier
-                    else clickableModifier
-
+                IconButton(
+                    modifier = Modifier
+                        .then(
+                            Modifier
+                                .size(iconSize)
+                        ),
+                    onClick = onToggle
+                ) {
                     Icon(
-                        modifier = endIconModifier,
-                        imageVector = Icons.Outlined.Cancel,
-                        contentDescription = stringResource(id = R.string.delete_text_cd),
-                        tint = Color.Gray
+                        modifier = Modifier,
+                        imageVector = if (isVisible) Icons.Rounded.Visibility else Icons.Rounded.VisibilityOff,
+                        contentDescription = null,
+                        tint = if (disabled) Color.Gray else MaterialTheme.colors.primary
                     )
-                } else {
-                    endIcon?.let {
-                        Spacer(
-                            modifier = Modifier
-                                .width(8.dp)
-                        )
-
-                        IconButton(
-                            modifier = Modifier
-                                .then(
-                                    Modifier
-                                        .size(iconSize)
-                                ),
-                            onClick = onEndIconClick
-                        ) {
-                            Icon(
-                                modifier = Modifier,
-                                imageVector = it,
-                                contentDescription = null,
-                                tint = if (disabled) Color.Gray else MaterialTheme.colors.onBackground
-                            )
-                        }
-                    }
                 }
             }
         },
@@ -204,91 +155,24 @@ fun DefaultTextField(
                 onSubmit()
             }
         ),
-        enabled = !disabled
+        visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation()
     )
 }
 
 @Preview(
-    name = "Big Text Field",
+    name = "Password Text Field",
     showBackground = true
 )
 @Composable
 private fun BigTextFieldPreview() {
     BreakFreeTheme {
-        DefaultTextField(
-            modifier = Modifier,
-            text = "Test Field",
-            onTextChange = {  },
-            placeholder = "Input Field"
-        )
-    }
-}
-
-@Preview(
-    name = "Medium Text Field",
-    showBackground = true
-)
-@Composable
-private fun MediumTextFieldPreview() {
-    BreakFreeTheme {
-        DefaultTextField(
+        PasswordTextField(
             modifier = Modifier,
             text = "Test Field",
             onTextChange = {  },
             placeholder = "Input Field",
-            size = TextFieldSize.Large
-        )
-    }
-}
-
-@Preview(
-    name = "Small Text Field",
-    showBackground = true
-)
-@Composable
-private fun SmallTextFieldPreview() {
-    BreakFreeTheme {
-        DefaultTextField(
-            modifier = Modifier,
-            text = "Test Field",
-            onTextChange = {  },
-            placeholder = "Input Field",
-            size = TextFieldSize.Small
-        )
-    }
-}
-
-@Preview(
-    name = "Icon Text Field",
-    showBackground = true
-)
-@Composable
-private fun IconTextFieldPreview() {
-    BreakFreeTheme {
-        DefaultTextField(
-            modifier = Modifier,
-            text = "Test Field",
-            onTextChange = {  },
-            placeholder = "Input Field",
-            startIcon = Icons.Rounded.Search
-        )
-    }
-}
-
-@Preview(
-    name = "Disabled Default Text Field",
-    showBackground = true
-)
-@Composable
-private fun DisabledDefaultTextFieldPreview() {
-    BreakFreeTheme {
-        DefaultTextField(
-            modifier = Modifier,
-            text = "Test",
-            onTextChange = {  },
-            placeholder = "Input Field",
-            startIcon = Icons.Rounded.Search,
-            disabled = true
+            isVisible = false,
+            onToggle = {  }
         )
     }
 }

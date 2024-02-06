@@ -17,6 +17,8 @@
             <option value="$PROJECT_DIR$/core_ui" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/boarding" />
+            <option value="$PROJECT_DIR$/presentation/get_started" />
+            <option value="$PROJECT_DIR$/presentation/login" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -22,14 +22,14 @@ class MainActivity : ComponentActivity() {
                 .loadShowBoardingAsFlow()
                 .collectAsState(initial = true)
 
-            val showLogin by preferences
+            val isLogin by preferences
                 .loadIsLoginAsFlow()
                 .collectAsState(initial = true)
 
             BreakFreeTheme {
                 BreakFree(
                     shouldShowOnBoarding = showBoarding,
-                    shouldShowLogin = showLogin
+                    shouldShowLogin = !isLogin
                 )
             }
         }

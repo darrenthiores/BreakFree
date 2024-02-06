@@ -1,0 +1,5 @@
+<resources>
+    <string name="phone_number">Phone Number</string>
+    <string name="star">*</string>
+    <string name="delete_text_cd">Delete Text</string>
+</resources>

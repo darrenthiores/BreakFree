@@ -1,0 +1,8 @@
+<resources>
+    <string name="get_started_cd">Get Started Illustration</string>
+    <string name="get_started_title">Welcome</string>
+    <string name="get_started_desc">Create an account and heal with us !</string>
+    <string name="register">Register</string>
+    <string name="have_acc">Already have an account ?</string>
+    <string name="login">Log in</string>
+</resources>
