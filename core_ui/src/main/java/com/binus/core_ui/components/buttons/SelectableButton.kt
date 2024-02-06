@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -24,11 +23,12 @@ import androidx.compose.ui.unit.dp
 import com.binus.core_ui.theme.BreakFreeTheme
 
 @Composable
-fun DefaultButton(
+fun SelectableButton(
     modifier: Modifier = Modifier,
     label: String?,
     onClick: () -> Unit,
     startIcon: ImageVector? = null,
+    endIcon: ImageVector? = null,
     disabled: Boolean = false,
     color: Color = MaterialTheme.colors.primary,
     textColor: Color? = null,
@@ -59,9 +59,9 @@ fun DefaultButton(
     val cornerRadius = when(shape) {
         ButtonShape.Rounded -> {
             when(size) {
-                ButtonSize.Small -> 4.dp
-                ButtonSize.Medium -> 8.dp
-                ButtonSize.Large -> 8.dp
+                ButtonSize.Small -> 8.dp
+                ButtonSize.Medium -> 12.dp
+                ButtonSize.Large -> 12.dp
             }
         }
         ButtonShape.Pill -> {
@@ -110,12 +110,6 @@ fun DefaultButton(
             color = color
         )
         else -> null
-    }
-
-    val spacing = when(size) {
-        ButtonSize.Small -> 4.dp
-        ButtonSize.Medium -> 8.dp
-        ButtonSize.Large -> 10.dp
     }
 
     val paddingHorizontal = when(size) {
@@ -172,7 +166,7 @@ fun DefaultButton(
                 label?.let {
                     Spacer(
                         modifier = Modifier
-                            .width(spacing)
+                            .weight(1f)
                     )
                 }
             }
@@ -182,6 +176,23 @@ fun DefaultButton(
                     text = it,
                     style = textStyle,
                     modifier = Modifier
+                )
+            }
+
+            endIcon?.let {
+                label?.let {
+                    Spacer(
+                        modifier = Modifier
+                            .weight(1f)
+                    )
+                }
+
+                Icon(
+                    modifier = Modifier
+                        .size(iconSize),
+                    imageVector = it,
+                    contentDescription = null,
+                    tint = iconColor ?: (if (disabled) Color.Gray else MaterialTheme.colors.onBackground)
                 )
             }
         }
@@ -196,7 +207,7 @@ private fun MediumRoundedFillButtonPreview() {
     BreakFreeTheme(
         darkTheme = true
     ) {
-        DefaultButton(
+        SelectableButton(
             label = "Button",
             onClick = { }
         )
@@ -209,7 +220,7 @@ private fun MediumRoundedFillButtonPreview() {
 @Composable
 private fun SmallRoundedFillButtonPreview() {
     BreakFreeTheme {
-        DefaultButton(
+        SelectableButton(
             label = "Button",
             onClick = { },
             size = ButtonSize.Small
@@ -223,7 +234,7 @@ private fun SmallRoundedFillButtonPreview() {
 @Composable
 private fun MediumPillOutlineButtonPreview() {
     BreakFreeTheme {
-        DefaultButton(
+        SelectableButton(
             label = "Button",
             onClick = { },
             shape = ButtonShape.Pill,
@@ -238,7 +249,7 @@ private fun MediumPillOutlineButtonPreview() {
 @Composable
 private fun MediumRoundedFillWidthButtonPreview() {
     BreakFreeTheme {
-        DefaultButton(
+        SelectableButton(
             modifier = Modifier.fillMaxWidth(),
             label = "Button",
             onClick = { },
@@ -254,7 +265,7 @@ private fun MediumRoundedFillWidthButtonPreview() {
 @Composable
 private fun LoadingButtonPreview() {
     BreakFreeTheme {
-        DefaultButton(
+        SelectableButton(
             modifier = Modifier.fillMaxWidth(),
             label = "Button",
             onClick = { },

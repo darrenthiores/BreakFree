@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
             val isLogin by preferences
                 .loadIsLoginAsFlow()
-                .collectAsState(initial = true)
+                .collectAsState(initial = false)
 
             BreakFreeTheme {
                 BreakFree(

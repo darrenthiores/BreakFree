@@ -23,6 +23,8 @@ import com.binus.core_ui.utils.UiEvent
 import com.binus.get_started.GetStartedScreen
 import com.binus.login.LoginScreen
 import com.binus.login.LoginViewModel
+import com.binus.register.RegisterScreen
+import com.binus.register.RegisterViewModel
 
 @Composable
 fun BreakFree(
@@ -124,7 +126,31 @@ fun BreakFree(
             }
 
             composable(Route.Register.name) {
-                Text("Register")
+                val viewModel: RegisterViewModel = hiltViewModel()
+                val state by viewModel.state.collectAsState()
+                val name = viewModel.name
+
+                LaunchedEffect(key1 = true) {
+                    viewModel.uiEvent.collect { event ->
+                        when(event) {
+                            is UiEvent.Success -> {
+                                navController.navigate(TopLevelDestination.Home.name) {
+                                    popUpTo(Route.Splash.name)
+                                }
+                            }
+                            else -> Unit
+                        }
+                    }
+                }
+
+                RegisterScreen(
+                    state = state,
+                    name = name,
+                    onEvent = viewModel::onEvent,
+                    onBackClick = {
+                        navController.navigateUp()
+                    }
+                )
             }
 
             composable(TopLevelDestination.Home.name) {

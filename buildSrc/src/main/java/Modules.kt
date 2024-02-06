@@ -5,5 +5,6 @@ object Modules {
     const val coreUi = ":core_ui"
     const val boarding = ":presentation:boarding"
     const val login = ":presentation:login"
+    const val register = ":presentation:register"
     const val getStarted = ":presentation:get_started"
 }

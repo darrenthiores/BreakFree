@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/presentation/boarding" />
             <option value="$PROJECT_DIR$/presentation/get_started" />
             <option value="$PROJECT_DIR$/presentation/login" />
+            <option value="$PROJECT_DIR$/presentation/register" />
           </set>
         </option>
       </GradleProjectSettings>

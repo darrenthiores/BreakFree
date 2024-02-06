@@ -1,0 +1,10 @@
+<resources>
+    <string name="register_label">Register Screen</string>
+    <string name="register_title">Tell us about you</string>
+    <string name="register_desc">Fill in the true information</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="name_pc">Full Name</string>
+    <string name="birthday_pc">Birthday</string>
+    <string name="next">Next</string>
+</resources>

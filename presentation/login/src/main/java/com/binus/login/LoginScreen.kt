@@ -37,7 +37,7 @@ fun LoginScreen(
     onEvent: (LoginEvent) -> Unit,
     onBackClick: () -> Unit
 ) {
-    val painter = painterResource(id = com.binus.core_ui.R.drawable.bf_male)
+    val painter = painterResource(id = R.drawable.dummy)
 
     Scaffold(
         topBar = {

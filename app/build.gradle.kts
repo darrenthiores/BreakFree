@@ -53,6 +53,7 @@ dependencies {
     implementation(project(Modules.coreUi))
     implementation(project(Modules.boarding))
     implementation(project(Modules.login))
+    implementation(project(Modules.register))
     implementation(project(Modules.getStarted))
 
     implementation(Compose.compiler)

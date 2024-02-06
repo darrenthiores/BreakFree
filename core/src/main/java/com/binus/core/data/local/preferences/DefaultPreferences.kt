@@ -31,15 +31,15 @@ class DefaultPreferences @Inject constructor(
     override suspend fun loadIsLogin(): Boolean {
         return context.dataStore.data
             .map { preferences ->
-                preferences[loginKey] ?: true
+                preferences[loginKey] ?: false
             }
-            .firstOrNull()  ?: true
+            .firstOrNull()  ?: false
     }
 
     override fun loadIsLoginAsFlow(): Flow<Boolean> {
         return context.dataStore.data
             .map { preferences ->
-                preferences[loginKey] ?: true
+                preferences[loginKey] ?: false
             }
     }
 
