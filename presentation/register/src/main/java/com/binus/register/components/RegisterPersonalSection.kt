@@ -25,6 +25,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CalendarMonth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,6 +52,7 @@ import com.binus.register.RegisterState
 import com.binus.register.model.Gender
 import com.binus.register.model.Gender.Companion.getImageId
 import com.binus.register.model.RegisterSection
+import timber.log.Timber
 import java.util.Calendar
 import java.util.Date
 
@@ -69,26 +72,40 @@ fun RegisterPersonalSection(
 
     dCalendar.time = Date()
 
-    val datePickerDialog = DatePickerDialog(
-        context,
-        com.binus.core_ui.R.style.Theme_DialogTheme,
-        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            val dateString = if(mDayOfMonth <= 9) "0$mDayOfMonth" else "$mDayOfMonth"
-            val month = mMonth + 1
-            val monthString = if(month <= 9) "0$month" else "$month"
+    val datePickerDialog = remember {
+        DatePickerDialog(
+            context,
+            com.binus.core_ui.R.style.Theme_DialogTheme,
+            { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+                val dateString = if(mDayOfMonth <= 9) "0$mDayOfMonth" else "$mDayOfMonth"
+                val month = mMonth + 1
+                val monthString = if(month <= 9) "0$month" else "$month"
 
-            onEvent(
-                RegisterEvent.OnSelectBirthday(
-                    birthday = DateUtils.stringToLocalDateTime(
-                        date = "$mYear-$monthString-$dateString"
+                onEvent(
+                    RegisterEvent.OnSelectBirthday(
+                        birthday = DateUtils.stringToLocalDateTime(
+                            date = "$mYear-$monthString-$dateString"
+                        )
                     )
                 )
+            },
+            dYear,
+            dMonth,
+            dDay
+        )
+    }
+
+    LaunchedEffect(key1 = state.birthday) {
+        state.birthday?.let { birthday ->
+            datePickerDialog.updateDate(
+                birthday.year,
+                birthday.monthNumber - 1,
+                birthday.dayOfMonth
             )
-        },
-        dYear,
-        dMonth,
-        dDay
-    )
+        }
+
+        Timber.d("here called")
+    }
 
     Scaffold(
         topBar = {
@@ -182,7 +199,7 @@ fun RegisterPersonalSection(
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.next),
                 onClick = {
-                    onEvent(RegisterEvent.Next(RegisterSection.Personal))
+                    onEvent(RegisterEvent.Next(RegisterSection.Account))
                 },
                 shape = ButtonShape.Pill,
                 disabled = name.isEmpty() || state.birthday == null || state.gender == null,

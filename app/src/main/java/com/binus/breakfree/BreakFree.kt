@@ -129,6 +129,10 @@ fun BreakFree(
                 val viewModel: RegisterViewModel = hiltViewModel()
                 val state by viewModel.state.collectAsState()
                 val name = viewModel.name
+                val number = viewModel.number
+                val password = viewModel.password
+                val otp = viewModel.otp
+                val countDown = viewModel.countDown
 
                 LaunchedEffect(key1 = true) {
                     viewModel.uiEvent.collect { event ->
@@ -146,6 +150,10 @@ fun BreakFree(
                 RegisterScreen(
                     state = state,
                     name = name,
+                    number = number,
+                    password = password,
+                    otp = otp,
+                    countDown = countDown,
                     onEvent = viewModel::onEvent,
                     onBackClick = {
                         navController.navigateUp()

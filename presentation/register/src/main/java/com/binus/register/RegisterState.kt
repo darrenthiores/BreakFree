@@ -8,6 +8,9 @@ data class RegisterState(
     val currentSection: RegisterSection = RegisterSection.Personal,
     val gender: Gender? = null,
     val birthday: LocalDateTime? = null,
+    val identifier: String = "+62",
+    val showDropDown: Boolean = false,
+    val showPassword: Boolean = false,
     val isLoading: Boolean = false,
     val error: String? = null
 )

@@ -5,7 +5,9 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toLocalDateTime
+import java.util.Date
 
 object DateUtils {
     fun now(): Long {
@@ -67,5 +69,15 @@ object DateUtils {
         val dateString = date + "T05:05:05"
 
         return LocalDateTime.parse(dateString)
+    }
+
+    fun localDateTimeToDate(
+        localDateTime: LocalDateTime
+    ): Date {
+        return Date.from(
+            localDateTime.toInstant(
+                timeZone = TimeZone.currentSystemDefault()
+            ).toJavaInstant()
+        )
     }
 }

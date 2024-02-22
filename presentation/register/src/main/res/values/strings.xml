@@ -7,4 +7,15 @@
     <string name="name_pc">Full Name</string>
     <string name="birthday_pc">Birthday</string>
     <string name="next">Next</string>
+    <string name="account_title">Create your account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="c_password">Create Password</string>
+    <string name="otp_title">OTP Verification</string>
+    <string name="otp_desc">OTP has been sent via SMS to</string>
+    <string name="resend_otp_desc">Don’t get the OTP ? </string>
+    <string name="resend">Resend</string>
+    <string name="otp_button">Verify OTP</string>
+    <string name="minute_second">%dm%ds</string>
+    <string name="minute">%dm</string>
+    <string name="second">%ds</string>
 </resources>
